@@ -1,0 +1,66 @@
+.remote-page {
+  width: min(560px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 32px 0;
+}
+
+.cart {
+  display: grid;
+  gap: 18px;
+}
+
+.remote-title {
+  display: grid;
+  gap: 10px;
+}
+
+.remote-title p {
+  margin: 0;
+  color: #536175;
+}
+
+.cart-list {
+  display: grid;
+  gap: 10px;
+}
+
+.cart-row,
+.cart-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid #d8dee8;
+}
+
+.cart-row div {
+  display: grid;
+  gap: 5px;
+}
+
+.cart-row span {
+  color: #536175;
+  font-size: 13px;
+}
+
+.cart-total {
+  border-bottom: 0;
+}
+
+.cart-total strong {
+  font-size: 24px;
+}
+
+.mf-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  color: #7a4a00;
+  background: #ffe8b5;
+  font-size: 13px;
+  font-weight: 700;
+}
