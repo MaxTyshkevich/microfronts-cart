@@ -1,3 +1,4 @@
+import tailwindcss from "@tailwindcss/vite";
 import react from '@vitejs/plugin-react';
 import { federation } from '@module-federation/vite';
 import { defineConfig, loadEnv, type Plugin } from 'vite';
@@ -13,8 +14,8 @@ export default defineConfig(({ command, mode }) => {
     
   };
   if (isProduction) {
-    if (!env.VITE_PUBLIC_BASE?.startsWith('https://') /* || !env.VITE_API_BASE_URL?.startsWith('https://') */) {
-      throw new Error('Production requires HTTPS VITE_PUBLIC_BASE and VITE_API_BASE_URL');
+    if (!env.VITE_PUBLIC_BASE?.startsWith('https://') || (apiBaseUrl !== '/api' && !apiBaseUrl.startsWith('https://'))) {
+      throw new Error('Production requires HTTPS VITE_PUBLIC_BASE and /api or HTTPS VITE_API_BASE_URL');
     }
   }
   const runtimeConfig: Plugin = {
@@ -31,7 +32,7 @@ export default defineConfig(({ command, mode }) => {
   const allowedOrigins = (env.DEV_ALLOWED_ORIGINS || 'http://localhost:5173,http://localhost:5174,http://localhost:5175,http://localhost:4173,http://localhost:4174,http://localhost:4175').split(',').map(value => value.trim()).filter(Boolean);
   const proxy = { '/api': { target: env.API_PROXY_TARGET || 'http://localhost:3000', changeOrigin: true } };
   return {
-    plugins: [react(), runtimeConfig, federation({
+    plugins: [tailwindcss(), react(), runtimeConfig, federation({
       name: 'cart',
       filename: 'remoteEntry.js',
       exposes: { './CartApp': './src/CartApp.tsx' },
@@ -46,6 +47,6 @@ export default defineConfig(({ command, mode }) => {
     base: command === 'serve' ? origin + '/' : env.VITE_PUBLIC_BASE || 'http://localhost:4175/',
     server: { origin, port: 5175, strictPort: true, cors: { origin: allowedOrigins }, proxy },
     preview: { port: 4175, strictPort: true, cors: { origin: allowedOrigins }, proxy },
-    build: { target: 'chrome89' },
+    build: { target: ["chrome111", "safari16.4", "firefox128"] },
   };
 });
