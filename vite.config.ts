@@ -8,13 +8,13 @@ export default defineConfig(({ command, mode }) => {
   const isProduction = command === 'build' && mode !== 'integration';
   const origin = env.DEV_PUBLIC_ORIGIN || 'http://localhost:5175';
   const apiBaseUrl = env.VITE_API_BASE_URL || '/api';
+  const publicBase = env.VITE_PUBLIC_BASE || (env.VERCEL_URL ? `https://${env.VERCEL_URL}/` : undefined);
   const config = {
     schemaVersion: 1,
     apiBaseUrl,
-    
   };
   if (isProduction) {
-    if (!env.VITE_PUBLIC_BASE?.startsWith('https://') || (apiBaseUrl !== '/api' && !apiBaseUrl.startsWith('https://'))) {
+    if (!publicBase?.startsWith('https://') || (apiBaseUrl !== '/api' && !apiBaseUrl.startsWith('https://'))) {
       throw new Error('Production requires HTTPS VITE_PUBLIC_BASE and /api or HTTPS VITE_API_BASE_URL');
     }
   }
@@ -44,7 +44,7 @@ export default defineConfig(({ command, mode }) => {
         'react-dom/client': { singleton: true, requiredVersion: '^19.0.0' },
       },
     })],
-    base: command === 'serve' ? origin + '/' : env.VITE_PUBLIC_BASE || 'http://localhost:4175/',
+    base: command === 'serve' ? origin + '/' : publicBase || 'http://localhost:4175/',
     server: { origin, port: 5175, strictPort: true, cors: { origin: allowedOrigins }, proxy },
     preview: { port: 4175, strictPort: true, cors: { origin: allowedOrigins }, proxy },
     build: { target: ["chrome111", "safari16.4", "firefox128"] },

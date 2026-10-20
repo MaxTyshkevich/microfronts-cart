@@ -32,6 +32,8 @@ Vite проксирует `/api/cart` в Railway, сохраняя `/api` в п�
 
 `.env.local` не коммитится. На Vercel задавайте полный `VITE_API_BASE_URL=https://microfronts-api-production-f9c3.up.railway.app/api` в окружении сборки, а `VITE_PUBLIC_BASE` — публичный адрес cart с завершающим `/`. Локальную базу `/api` нельзя переносить в статический облачный деплой без отдельного reverse proxy.
 
+Для Vercel Preview задайте `VITE_API_BASE_URL` отдельно. Адрес самого Preview-деплоя сборка получает из системного `VERCEL_URL`, когда `VITE_PUBLIC_BASE` не задан. Preview-домену также нужен доступ к API по CORS; проверьте его перед использованием авторизованных сценариев.
+
 Команды: npm run typecheck, npm run build (cloud), npm run build:local (localhost), npm run preview. Preview использует порт 4175. Общая сборка и тесты стенда находятся в отдельном integration-репозитории.
 
 Exposed module: cart/CartApp. Props из @microfronts/contracts: apiBaseUrl, cartKey, queryClient, sessionScope, onUnauthorized, onNavigate. Общий клиент создаёт Shell. Standalone создаёт свой клиент и отправляет гостевые запросы без cookies. Старые refreshVersion сохранены для совместимости host. CreateRoot вызывается только в standalone main.tsx.
