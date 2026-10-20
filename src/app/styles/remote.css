@@ -1,8 +1,3 @@
-.cart {
-  display: grid;
-  gap: 18px;
-}
-
 .cart .cart-title {
   display: grid;
   gap: 10px;
