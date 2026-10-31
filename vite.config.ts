@@ -1,3 +1,4 @@
+import { fileURLToPath } from "node:url";
 import tailwindcss from "@tailwindcss/vite";
 import react from '@vitejs/plugin-react';
 import { federation } from '@module-federation/vite';
@@ -32,6 +33,7 @@ export default defineConfig(({ command, mode }) => {
   const allowedOrigins = (env.DEV_ALLOWED_ORIGINS || 'http://localhost:5173,http://localhost:5174,http://localhost:5175,http://localhost:4173,http://localhost:4174,http://localhost:4175').split(',').map(value => value.trim()).filter(Boolean);
   const proxy = { '/api': { target: env.API_PROXY_TARGET || 'http://localhost:3000', changeOrigin: true } };
   return {
+    resolve: { alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) } },
     plugins: [tailwindcss(), react(), runtimeConfig, federation({
       name: 'cart',
       filename: 'remoteEntry.js',

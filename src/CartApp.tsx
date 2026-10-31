@@ -2,11 +2,11 @@ import { QueryClient, QueryClientProvider, useQuery, useMutation, useQueryClient
 import { cartKey as sharedCartKey } from "@microfronts/contracts";
 import { useEffect, useRef, useState } from "react";
 import { Badge, Button } from "@microfronts/ui";
-import { formatMoney, request as apiRequest } from "./api";
-import type { CartProps } from "./remote-props";
-import type { Cart } from "./models";
-import "./app/styles/tailwind.css";
-import "./app/styles/remote.css";
+import { formatMoney, request as apiRequest } from "@/api";
+import type { CartProps } from "@/remote-props";
+import type { Cart } from "@/models";
+import "@/app/styles/tailwind.css";
+import "@/app/styles/remote.css";
 
 export default function CartApp(props: CartProps) {
   const [localClient] = useState(() => new QueryClient({ defaultOptions: { queries: { retry: false }, mutations: { retry: false } } }));

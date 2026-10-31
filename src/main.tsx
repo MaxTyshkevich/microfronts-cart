@@ -1,10 +1,10 @@
 import { QueryClient } from "@tanstack/react-query";
-import "./app/styles/page-reset.css";
+import "@/app/styles/page-reset.css";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { getCartKey } from "./cart-key";
-import CartApp from "./CartApp";
-import "./app/styles/standalone.css";
+import { getCartKey } from "@/cart-key";
+import CartApp from "@/CartApp";
+import "@/app/styles/standalone.css";
 const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false, staleTime: 30000 }, mutations: { retry: false } } });
 const root = createRoot(document.getElementById("root")!);
 fetch("/runtime-config.json", { cache: "no-store" })
