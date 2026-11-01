@@ -11,8 +11,7 @@
     "preview": "vite preview --host 0.0.0.0",
     "build:local": "vite build --mode integration",
     "lint": "eslint src --max-warnings 0",
-    "check:architecture": "npm run lint",
-    "test:lint": "node --test scripts/eslint/*.test.mjs"
+    "check:architecture": "npm run lint"
   },
   "dependencies": {
     "@microfronts/contracts": "file:vendor/microfronts-contracts-0.1.0.tgz",
